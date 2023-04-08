@@ -1,24 +1,26 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
 
-    <material name="orange">
-        <color rgba="1 0.3 0.1 1"/>
-    </material>
 
-    <material name="blue">
-        <color rgba="0.2 0.2 1 1"/>
-    </material>
+	<xacro:include filename="include.xacro" />
 
-    <material name="black">
-        <color rgba="0 0 0 1"/>
-    </material>
+ 
 
+	<gazebo>
+        <plugin name="gazebo_ros_joint_state_publisher"
+            filename="libgazebo_joint_state_publisher.so">
+            <update_rate>20</update_rate>
+            <joint_name>stand_joint</joint_name>
+            <joint_name>arm1_joint</joint_name>
+            <joint_name>arm2_joint</joint_name>
+        </plugin>
+    </gazebo>
 
 	<link name="stand_link">
 		<visual>
 		    <origin xyz="0 0 0.025" rpy="0 0 0"/>
 			<geometry>
-				<box size="0.5 0.5 0.05"/>
+				<box size="0.5 0.5 0.01"/>
 			</geometry>
 			<material name="black"/>
 		</visual>
@@ -33,6 +35,9 @@
       		<inertia ixx="3.8" ixy="0" ixz="0" iyy="3.8" iyz="0" izz="18"/>
  		 </inertial>
 	</link>
+	<gazebo reference="stand_link">
+    	<material>Gazebo/Black</material>
+	</gazebo>
 
 
     <link name="base_link">
@@ -54,8 +59,13 @@
       		<inertia ixx="0.2" ixy="0" ixz="0" iyy="0.2" iyz="0" izz="0.8"/>
  		 </inertial>
 	</link>
+	<gazebo reference="base_link">
+    	<material>Gazebo/Orange</material>
+	</gazebo>
+
+
 	
-<link name="arm1_link">
+	<link name="arm1_link">
 		<visual>
 			<origin xyz="0.078 0 0" rpy="0 1.57079632679 0"/>
 			<geometry>
@@ -74,8 +84,11 @@
       		<inertia ixx="0.002" ixy="0" ixz="0" iyy="0.000215" iyz="0" izz="0.0008"/>
  		 </inertial>
 	</link>
+	<gazebo reference="arm1_link">
+    	<material>Gazebo/Black</material>
+	</gazebo>
 
-<link name="arm2_link">
+	<link name="arm2_link">
 		<visual>
 			<origin xyz="0 0 -0.0675" rpy="0 0 0"/>
 			<geometry>
@@ -94,6 +107,9 @@
      		 <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0002" iyz="0" izz="0.0007"/>
   	  </inertial>
 	</link>
+	<gazebo reference="arm2_link">
+    	<material>Gazebo/Orange</material>
+	</gazebo>
 
 	<joint name="stand_joint" type="fixed">
     	<parent link="stand_link"/>
