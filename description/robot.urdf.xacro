@@ -99,6 +99,7 @@
 	</joint> 
 	
 	<xacro:include filename="include.xacro" />
+	<xacro:include filename="gazebo.control.xacro" />
 
 
 </robot>
