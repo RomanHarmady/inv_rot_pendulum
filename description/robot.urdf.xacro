@@ -2,42 +2,17 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
 
 
-	<xacro:include filename="include.xacro" />
+	
 
  
 
-	<gazebo>
-        <plugin name="gazebo_ros_joint_state_publisher"
-            filename="libgazebo_joint_state_publisher.so">
-            <update_rate>20</update_rate>
-            <joint_name>stand_joint</joint_name>
-            <joint_name>arm1_joint</joint_name>
-            <joint_name>arm2_joint</joint_name>
-        </plugin>
-    </gazebo>
+	 <link name="world"></link>
 
-	<link name="stand_link">
-		<visual>
-		    <origin xyz="0 0 0.025" rpy="0 0 0"/>
-			<geometry>
-				<box size="0.5 0.5 0.01"/>
-			</geometry>
-			<material name="black"/>
-		</visual>
-  		<collision>
-  			<origin xyz="0 0 0.1" rpy="0 0 0"/>
-			<geometry>
-				<box size="0.5 0.5 0.05"/>
-			</geometry>
-  		</collision>
-  		<inertial>
-    		<mass value="141"/>
-      		<inertia ixx="3.8" ixy="0" ixz="0" iyy="3.8" iyz="0" izz="18"/>
- 		 </inertial>
-	</link>
-	<gazebo reference="stand_link">
-    	<material>Gazebo/Black</material>
-	</gazebo>
+	  <joint name="base_joint" type="fixed">
+        <origin xyz="1.5 1.0 0" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="base_link"/>        
+    </joint>
 
 
     <link name="base_link">
@@ -59,9 +34,7 @@
       		<inertia ixx="0.2" ixy="0" ixz="0" iyy="0.2" iyz="0" izz="0.8"/>
  		 </inertial>
 	</link>
-	<gazebo reference="base_link">
-    	<material>Gazebo/Orange</material>
-	</gazebo>
+	
 
 
 	
@@ -84,9 +57,7 @@
       		<inertia ixx="0.002" ixy="0" ixz="0" iyy="0.000215" iyz="0" izz="0.0008"/>
  		 </inertial>
 	</link>
-	<gazebo reference="arm1_link">
-    	<material>Gazebo/Black</material>
-	</gazebo>
+	
 
 	<link name="arm2_link">
 		<visual>
@@ -107,21 +78,16 @@
      		 <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0002" iyz="0" izz="0.0007"/>
   	  </inertial>
 	</link>
-	<gazebo reference="arm2_link">
-    	<material>Gazebo/Orange</material>
-	</gazebo>
 
-	<joint name="stand_joint" type="fixed">
-    	<parent link="stand_link"/>
-    	<child link="base_link"/>
-    	<origin xyz="0 0 0" rpy="0 0 0"/>
-	</joint>
+
+
 
 	<joint name="arm1_joint" type="continuous">
     	<parent link="base_link"/>
     	<child link="arm1_link"/>
     	<origin xyz="0 0 0.4" rpy="0 0 0"/>
   		<axis xyz = "0 0 1"/>
+		<dynamics damping="0.1"/>
 	</joint>
 
 	<joint name="arm2_joint" type="continuous">
@@ -129,8 +95,10 @@
     	<child link="arm2_link"/>
     	<origin xyz="0.156 0 0" rpy="0 0 0"/>
   		<axis xyz = "1 0 0"/>
+		<dynamics damping="0.1"/>
 	</joint> 
 	
+	<xacro:include filename="include.xacro" />
 
 
 </robot>
