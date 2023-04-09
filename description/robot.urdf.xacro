@@ -87,7 +87,7 @@
     	<child link="arm1_link"/>
     	<origin xyz="0 0 0.4" rpy="0 0 0"/>
   		<axis xyz = "0 0 1"/>
-		<dynamics damping="0.1"/>
+		<dynamics damping="0.03"/>
 	</joint>
 
 	<joint name="arm2_joint" type="continuous">
@@ -95,7 +95,7 @@
     	<child link="arm2_link"/>
     	<origin xyz="0.156 0 0" rpy="0 0 0"/>
   		<axis xyz = "1 0 0"/>
-		<dynamics damping="0.1"/>
+		<dynamics damping="0.02"/> 
 	</joint> 
 	
 	<xacro:include filename="include.xacro" />
