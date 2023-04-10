@@ -1,16 +1,26 @@
 controller_manager:
   ros__parameters:
-    update_rate: 30
+    update_rate: 1000
     use_sim_time: true
 
     motor_cont:
-      type: joint_velocity_controller/JointVelocityController
+      type: velocity_controllers/JointGroupVelocityController
 
-      joint_broad:
-        type: joint_state_broadcaster/JointStateBroadcaster
+    joint_broad:
+      type: joint_state_broadcaster/JointStateBroadcaster
+        
 
 motor_cont:
   ros__parameters:
     has_position_limits: false 
     has_velocity_limits: false
+    joints:
+      - arm1_joint
+    
+joint_broad:
+  ros__parameters:
+    joints:
+      - arm1_joint
+      - arm2_joint
+
    
