@@ -34,9 +34,25 @@ def generate_launch_description():
                     arguments=['-topic', 'robot_description',
                                 '-entity', 'my_bot'],
                     output='screen')
+
+
+    mot_drive_spawner = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["motor_cont"],
+    )
+
+    joint_broad_spawner = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["joint_broad"],
+    )      
     
     return LaunchDescription([
         gazebo,
         node_robot_state_publisher,
-        spawn_entity
+        spawn_entity,
+        mot_drive_spawner,
+        joint_broad_spawner
+        
     ])
